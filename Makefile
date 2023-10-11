@@ -1,10 +1,11 @@
 HOSTNAME = paloaltonetworks.com
 NAMESPACE = prismacloud
 NAME = prismacloudcompute
-BINARY = terraform-provider-${NAME}
 
 VERSION ?= 0.0.1
 OS_ARCH ?= darwin_amd64
+
+BINARY = terraform-provider-${NAME}-${OS_ARCH}
 
 default: install
 
