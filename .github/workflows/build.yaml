@@ -20,8 +20,8 @@ jobs:
 
       - shell: bash
         run: |
-          make build OS_ARCH=linux_arm64 VERSION=0.0.0-testing
-          make build OS_ARCH=linux_amd64 VERSION=0.0.0-testing
+          GOOS=linux GOARCH=arm64 make build OS_ARCH=linux_arm64 VERSION=0.0.0-testing
+          GOOS=linux GOARCH=amd64 make build OS_ARCH=linux_amd64 VERSION=0.0.0-testing
 
       - uses: actions/upload-artifact@v3
         with:
