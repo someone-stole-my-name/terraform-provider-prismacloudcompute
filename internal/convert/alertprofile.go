@@ -59,16 +59,6 @@ func AlertProfilePoliciesToSchema(d *alertprofile.Policy) interface{} {
 		}
 	}
 
-	if d.CodeRepoVulnerability.Enabled {
-		alertTriggerPolicies["code_repo_vulnerability"] = []interface{}{
-			map[string]interface{}{
-				"enabled":   d.CodeRepoVulnerability.Enabled,
-				"all_rules": d.CodeRepoVulnerability.Allrules,
-				"rules":     d.CodeRepoVulnerability.Rules,
-			},
-		}
-	}
-
 	if d.ContainerAppFirewall.Enabled {
 		alertTriggerPolicies["container_app_firewall"] = []interface{}{
 			map[string]interface{}{
@@ -337,15 +327,6 @@ func SchemaToAlertprofile(d *schema.ResourceData) (alertprofile.AlertProfile, er
 
 				for _, rule := range cv.(map[string]interface{})["rules"].([]interface{}) {
 					parsedAlertProfile.Policy.CloudDiscovery.Rules = append(parsedAlertProfile.Policy.CloudDiscovery.Rules, rule.(string))
-				}
-			}
-
-			for _, cv := range alertTrigger.(map[string]interface{})["code_repo_vulnerability"].([]interface{}) {
-				parsedAlertProfile.Policy.CodeRepoVulnerability.Enabled = cv.(map[string]interface{})["enabled"].(bool)
-				parsedAlertProfile.Policy.CodeRepoVulnerability.Allrules = cv.(map[string]interface{})["all_rules"].(bool)
-
-				for _, rule := range cv.(map[string]interface{})["rules"].([]interface{}) {
-					parsedAlertProfile.Policy.CodeRepoVulnerability.Rules = append(parsedAlertProfile.Policy.CodeRepoVulnerability.Rules, rule.(string))
 				}
 			}
 
